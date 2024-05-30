@@ -1,6 +1,6 @@
-package util;
+package elements;
 
-import elements.Gem;
+import economy.Gem;
 
 import java.util.Map;
 

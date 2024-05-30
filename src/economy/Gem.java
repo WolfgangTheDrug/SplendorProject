@@ -1,6 +1,6 @@
-package elements;
+package economy;
 
-public enum Gem implements Valuable{
+public enum Gem implements Valuable {
     DIAMOND("⚪️", "⬜️"),
     ONYX("⚫️", "⬛️"),
     SAPPHIRE("🔵", "🟦"),
@@ -15,11 +15,16 @@ public enum Gem implements Valuable{
         this.squareSymbol = squareSymbol;
     }
 
-    public String getRoundSymbol()  {
+    private String getRoundSymbol()  {
         return roundSymbol;
     }
 
-    public String getSquareSymbol() {
+    private String getSquareSymbol() {
         return squareSymbol;
+    }
+
+    @Override
+    public String getSymbol(boolean isSquare) {
+        return isSquare ? getSquareSymbol() : getRoundSymbol();
     }
 }

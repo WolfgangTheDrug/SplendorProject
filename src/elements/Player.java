@@ -1,7 +1,8 @@
 package elements;
 
-import util.DevelopmentCardVector;
-import util.TokenVector;
+import economy.Gem;
+import economy.GemCardVector;
+import economy.GemTokenVector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +12,8 @@ public class Player {
     private final String name;
     private byte score;
     private byte goldTokens;
-    private final TokenVector gemsFromTokens;
-    private final DevelopmentCardVector gemsFromDevelopmentCards;
+    private final GemTokenVector gemsFromTokens;
+    private final GemCardVector gemsFromDevelopmentCards;
     private final List<DevelopmentCard> hand;
     private final List<NobleTile> nobleTiles;
 
@@ -21,8 +22,8 @@ public class Player {
         this.name = name;
         this.score = 0;
         this.goldTokens = 0;
-        this.gemsFromTokens = new TokenVector();
-        this.gemsFromDevelopmentCards = new DevelopmentCardVector();
+        this.gemsFromTokens = new GemTokenVector();
+        this.gemsFromDevelopmentCards = new GemCardVector();
         this.hand = new ArrayList<>();
         this.nobleTiles = new ArrayList<>();
     }
@@ -47,11 +48,11 @@ public class Player {
         this.score = score;
     }
 
-    public TokenVector getGemsFromTokens() {
+    public GemTokenVector getGemsFromTokens() {
         return gemsFromTokens;
     }
 
-    public DevelopmentCardVector getGemsFromDevelopmentCards() {
+    public GemCardVector getGemsFromDevelopmentCards() {
         return gemsFromDevelopmentCards;
     }
 
@@ -64,7 +65,7 @@ public class Player {
     }
 
     private void drawTokens(Gem...gemTokens){
-        this.gemsFromTokens.add(TokenVector.fromGems(gemTokens));
+        this.gemsFromTokens.add(GemTokenVector.fromGems(gemTokens));
     }
 
     private void draw2Tokens(Gem gem) {
@@ -76,7 +77,7 @@ public class Player {
     }
 
     private void putTokensAway(byte[] gemTokenAmounts) {
-        this.gemsFromTokens.subtract(TokenVector.fromGemAmounts(gemTokenAmounts));
+        this.gemsFromTokens.subtract(GemTokenVector.fromGemAmounts(gemTokenAmounts));
     }
 
     private void drawGoldToken(){

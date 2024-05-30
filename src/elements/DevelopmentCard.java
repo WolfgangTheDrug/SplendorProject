@@ -1,6 +1,6 @@
 package elements;
 
-import util.DevelopmentCardReader;
+import economy.Gem;
 
 import java.util.Map;
 

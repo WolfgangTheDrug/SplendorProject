@@ -1,12 +1,12 @@
 package elements;
 
-import util.DevelopmentCardVector;
+import economy.GemCardVector;
 
 public class NobleTile {
     private final byte score;
-    private final DevelopmentCardVector price;
+    private final GemCardVector price;
 
-    public NobleTile(byte score, DevelopmentCardVector price) {
+    public NobleTile(byte score, GemCardVector price) {
         this.score = score;
         this.price = price;
     }
@@ -15,7 +15,7 @@ public class NobleTile {
         return score;
     }
 
-    public DevelopmentCardVector getPrice() {
+    public GemCardVector getPrice() {
         return price;
     }
 
