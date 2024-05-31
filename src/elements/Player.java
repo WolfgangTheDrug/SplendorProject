@@ -1,8 +1,6 @@
 package elements;
 
-import economy.Gem;
-import economy.GemCardVector;
-import economy.GemTokenVector;
+import economy.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +9,8 @@ public class Player {
     private final byte id;
     private final String name;
     private byte score;
-    private byte goldTokens;
     private final GemTokenVector gemsFromTokens;
+    private final PreciousMetalTokenVector metalTokens;
     private final GemCardVector gemsFromDevelopmentCards;
     private final List<DevelopmentCard> hand;
     private final List<NobleTile> nobleTiles;
@@ -21,7 +19,7 @@ public class Player {
         this.id = id;
         this.name = name;
         this.score = 0;
-        this.goldTokens = 0;
+        this.metalTokens = new PreciousMetalTokenVector();
         this.gemsFromTokens = new GemTokenVector();
         this.gemsFromDevelopmentCards = new GemCardVector();
         this.hand = new ArrayList<>();
@@ -52,6 +50,10 @@ public class Player {
         return gemsFromTokens;
     }
 
+    public PreciousMetalTokenVector getMetalTokens(){
+        return metalTokens;
+    }
+
     public GemCardVector getGemsFromDevelopmentCards() {
         return gemsFromDevelopmentCards;
     }
@@ -64,28 +66,30 @@ public class Player {
         return nobleTiles;
     }
 
-    private void drawTokens(Gem...gemTokens){
+    private void drawGemTokens(Gem...gemTokens){
         this.gemsFromTokens.add(GemTokenVector.fromGems(gemTokens));
     }
 
-    private void draw2Tokens(Gem gem) {
-        this.drawTokens(gem, gem);
+    private void draw2GemTokens(Gem gem) {
+        this.drawGemTokens(gem, gem);
     }
 
-    private void draw3Tokens(Gem gem1, Gem gem2, Gem gem3) {
-        this.drawTokens(gem1, gem2, gem3);
+    private void draw3GemTokens(Gem gem1, Gem gem2, Gem gem3) {
+        this.drawGemTokens(gem1, gem2, gem3);
     }
 
-    private void putTokensAway(byte[] gemTokenAmounts) {
+    private void putGemTokensAway(byte[] gemTokenAmounts) {
         this.gemsFromTokens.subtract(GemTokenVector.fromGemAmounts(gemTokenAmounts));
     }
 
-    private void drawGoldToken(){
-        this.goldTokens += 1;
+    private void drawMetalToken(PreciousMetal...preciousMetalTokens){
+        this.metalTokens.add(PreciousMetalTokenVector.fromMetals(preciousMetalTokens));
     }
 
-    private void putGoldTokensAway() {
-        this.goldTokens -= 1;
+    private void putMetalTokensAway(byte[] metalTokensAmounts) {
+        this.metalTokens.subtract(PreciousMetalTokenVector.fromMetalAmounts(metalTokensAmounts));
     }
+
+
 
 }

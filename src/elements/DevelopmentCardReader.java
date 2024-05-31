@@ -1,6 +1,7 @@
 package elements;
 
 import economy.Gem;
+import economy.GemTokenVector;
 
 import java.util.Map;
 
@@ -26,7 +27,7 @@ abstract public class DevelopmentCardReader {
         return this.bonus;
     }
 
-    public Map<Gem, Byte> getPrice() {
+    public GemTokenVector getPrice() {
         return this.price;
     }
 

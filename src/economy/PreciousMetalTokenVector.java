@@ -3,16 +3,42 @@ package economy;
 import org.jetbrains.annotations.NotNull;
 
 public class PreciousMetalTokenVector extends ValuableVector<PreciousMetal> {
-    public PreciousMetalTokenVector(PreciousMetal @NotNull [] values) {
-        super(values);
+    public PreciousMetalTokenVector() {
+        super(PreciousMetal.values());
     }
 
     public void add(PreciousMetalTokenVector preciousMetalTokenVector) {
         super.add(preciousMetalTokenVector);
     }
 
+
+    public void subtract(PreciousMetalTokenVector preciousMetalTokenVector) {
+        for(int i = 0; i < this.getAmounts().length; i++) {
+            this.getAmounts()[i] -= preciousMetalTokenVector.getAmounts()[i];
+        }
+    }
+
     public boolean isGreaterOrEqual(PreciousMetalTokenVector preciousMetalTokenVector) {
         return super.isGreaterOrEqual(preciousMetalTokenVector);
+    }
+
+    public static @NotNull PreciousMetalTokenVector fromMetals(PreciousMetal @NotNull ...preciousMetals) {
+        PreciousMetalTokenVector result = new PreciousMetalTokenVector();
+
+        for (PreciousMetal preciousMetal : preciousMetals) {
+            for (int j = 0; j < PreciousMetal.values().length; j++) {
+                if (preciousMetal == PreciousMetal.values()[j]) {
+                    result.getAmounts()[j] += 1;
+                }
+            }
+        }
+        return result;
+    }
+
+    public static @NotNull PreciousMetalTokenVector fromMetalAmounts(byte[] amounts) {
+        PreciousMetalTokenVector result = new PreciousMetalTokenVector();
+        result.setAmounts(amounts);
+        return result;
     }
 
     @Override
@@ -23,4 +49,5 @@ public class PreciousMetalTokenVector extends ValuableVector<PreciousMetal> {
         }
         return result.toString();
     }
+
 }

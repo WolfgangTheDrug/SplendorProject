@@ -1,6 +1,7 @@
 package elements;
 
 import economy.Gem;
+import economy.GemTokenVector;
 
 import java.util.Map;
 
@@ -8,10 +9,10 @@ public class DevelopmentCard {
     private final byte level;
     private final byte score;
     private final Gem bonus;
-    private final Map<Gem, Byte> price;
+    private final GemTokenVector price;
     private boolean isRevealed;
 
-    public DevelopmentCard(byte level, byte score, Gem bonus, Map<Gem, Byte> price) {
+    public DevelopmentCard(byte level, byte score, Gem bonus, GemTokenVector price) {
         this.level = level;
         this.score = score;
         this.bonus = bonus;
@@ -36,7 +37,7 @@ public class DevelopmentCard {
         return bonus;
     }
 
-    public Map<Gem, Byte> getPrice() {
+    public GemTokenVector getPrice() {
         return price;
     }
 
