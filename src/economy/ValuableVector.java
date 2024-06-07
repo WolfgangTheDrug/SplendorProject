@@ -4,20 +4,20 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 abstract public class ValuableVector<V extends Valuable> {
-    private byte[] amounts;
+    private int[] amounts;
     private final V[] units;
 
     @Contract(pure = true)
     public ValuableVector(V @NotNull [] values){
-        this.amounts = new byte[values.length];
+        this.amounts = new int[values.length];
         this.units = values;
     }
 
-    public byte[] getAmounts() {
+    public int[] getAmounts() {
         return amounts;
     }
 
-    public void setAmounts(byte[] amounts) {
+    public void setAmounts(int[] amounts) {
         this.amounts = amounts;
     }
 

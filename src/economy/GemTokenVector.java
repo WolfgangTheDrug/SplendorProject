@@ -33,7 +33,7 @@ public class GemTokenVector extends GemVector {
         return result;
     }
 
-    public static @NotNull GemTokenVector fromGemAmounts(byte[] amounts) {
+    public static @NotNull GemTokenVector fromGemAmounts(int[] amounts) {
         GemTokenVector result = new GemTokenVector();
         result.setAmounts(amounts);
         return result;

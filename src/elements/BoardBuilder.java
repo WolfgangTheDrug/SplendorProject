@@ -1,86 +1,80 @@
 package elements;
 
-
 import economy.Gem;
 import economy.GemTokenVector;
 import economy.PreciousMetal;
 import economy.PreciousMetalTokenVector;
 
+import java.security.cert.CertPathBuilder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 public class BoardBuilder {
-    private List<List<DevelopmentCard>> decks;
-    private List<List<DevelopmentCard>> upcards;
-    private List<Player> players;
-    private List<NobleTile> nobles;
-    private GemTokenVector gems;
-    private PreciousMetalTokenVector metals;
+    private final Board board;
 
-    public BoardBuilder(){
-        this.decks = new ArrayList<>(3);
-        this.upcards = new ArrayList<>(3);
-        this.players = new ArrayList<>(2);
-        this.nobles = new ArrayList<>(3);
-        this.gems = new GemTokenVector();
-        this.metals = new PreciousMetalTokenVector();
+    public BoardBuilder() {
+        this.board = new Board();
     }
 
-    public BoardBuilder setDecks(List<DevelopmentCard> order1Deck, List<DevelopmentCard> order2Deck, List<DevelopmentCard> order3Deck) {
-        Collections.shuffle(order1Deck);
-        Collections.shuffle(order2Deck);
-        Collections.shuffle(order3Deck);
-        this.decks.add(order1Deck);
-        this.decks.add(order2Deck);
-        this.decks.add(order3Deck);
-        return this;
-    }
-
-    public BoardBuilder setUpcards() {
-        DevelopmentCard card;
-        for (int i = 0; i < this.decks.size(); i++) {
-            this.upcards.add(new ArrayList<>(4));
-            card = this.decks.get(i).remove(0);
-            card.reveal();
-            this.upcards.get(i).add(card);
+    private List<List<DevelopmentCard>> separateDevelopmentCardsByLevel (List<DevelopmentCard> fullDeck) {
+        final int DECK_COUNT = 3;
+        List<List<DevelopmentCard>> separatedDecks = new ArrayList<>(DECK_COUNT);
+        for (int i = 0; i < DECK_COUNT; i++) {
+            separatedDecks.add(new ArrayList<>());
         }
+
+        Collections.shuffle(fullDeck);
+
+        for (DevelopmentCard card : fullDeck) {
+            separatedDecks.get(card.getLevel() - 1).add(card);
+        }
+        return separatedDecks;
+    }
+
+    public BoardBuilder placeDevelopmentCards(List<DevelopmentCard> fullDeck) {
+        List<List<DevelopmentCard>> separatedDecks = this.separateDevelopmentCardsByLevel(fullDeck);
+        board.setDecks(separatedDecks);
         return this;
     }
 
-    public BoardBuilder introducePlayer() {
-        byte id = (byte) (this.players.size() + 1);
-        Player player = new Player(id);
-        this.players.add(player);
+
+
+    public BoardBuilder placeNobleTiles(int playerCount, List<NobleTile> nobleTiles) {
+        final int NOBLE_TILES_COUNT = playerCount + 1;
+
+        Collections.shuffle(nobleTiles);
+        List<NobleTile> drawnTiles = nobleTiles.subList(0, NOBLE_TILES_COUNT);
+        this.board.setNobles(drawnTiles);
+
         return this;
     }
 
-    public BoardBuilder introducePlayer(String name) {
-        byte id = (byte) (this.players.size() + 1);
-        Player player = new Player(id, name);
-        this.players.add(player);
-        return this;
+    public BoardBuilder placeGemTokens(int playerCount) {
+        int gemTokenCount = playerCount + 2;
+        if (playerCount == 4) {
+            ++gemTokenCount;
+        }
+
+        int[] amounts = new int[Gem.values().length];
+        Arrays.fill(amounts, gemTokenCount);
+
+        GemTokenVector initialGemTokens = GemTokenVector.fromGemAmounts(amounts);
+        this.board.setGems(initialGemTokens);
     }
 
-    public BoardBuilder introduceNobleTile(NobleTile nobleTile) {
-        this.nobles.add(nobleTile);
-        return this;
-    }
+    public BoardBuilder placeMetalTokens() {
+        int metalTokenCount = 5;
 
-    public BoardBuilder increaseGemsAmounts() {
-        GemTokenVector gems = GemTokenVector.fromGems(Gem.values());
-        this.gems.add(gems);
-        return this;
-    }
+        int[] amounts = new int[PreciousMetal.values().length];
+        Arrays.fill(amounts, metalTokenCount);
 
-    public BoardBuilder increaseMetalsAmounts(){
-        PreciousMetalTokenVector metals = PreciousMetalTokenVector.fromMetals(PreciousMetal.values());
-        this.metals.add(metals);
-        return this;
+        PreciousMetalTokenVector initialMetalTokens = PreciousMetalTokenVector.fromMetalAmounts(amounts);
+        this.board.setMetals(initialMetalTokens);
     }
 
     public Board build() {
-        return new Board(this);
+        return this.board;
     }
 }

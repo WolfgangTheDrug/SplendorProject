@@ -2,23 +2,26 @@ package elements;
 
 import economy.*;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    private final byte id;
+    private final int id;
     private final String name;
-    private byte score;
+    private int score;
+    private int cardCount;
     private final GemTokenVector gemsFromTokens;
     private final PreciousMetalTokenVector metalTokens;
     private final GemCardVector gemsFromDevelopmentCards;
     private final List<DevelopmentCard> hand;
     private final List<NobleTile> nobleTiles;
 
-    public Player(byte id, String name) {
+    public Player(int id, String name) {
         this.id = id;
         this.name = name;
         this.score = 0;
+        this.cardCount = 0;
         this.metalTokens = new PreciousMetalTokenVector();
         this.gemsFromTokens = new GemTokenVector();
         this.gemsFromDevelopmentCards = new GemCardVector();
@@ -26,44 +29,48 @@ public class Player {
         this.nobleTiles = new ArrayList<>();
     }
 
-    public Player(byte id) {
+    public Player(int id) {
         this(id, "Player " + id);
     }
 
-    public byte getId() {
-        return id;
+    public int getId() {
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
-    public byte getScore() {
-        return score;
+    public int getScore() {
+        return this.score;
     }
 
-    public void setScore(byte score) {
+    public void setScore(int score) {
         this.score = score;
     }
 
+    public int getDevelopmentCardCount() {
+        return this.cardCount;
+    }
+
     public GemTokenVector getGemsFromTokens() {
-        return gemsFromTokens;
+        return this.gemsFromTokens;
     }
 
     public PreciousMetalTokenVector getMetalTokens(){
-        return metalTokens;
+        return this.metalTokens;
     }
 
     public GemCardVector getGemsFromDevelopmentCards() {
-        return gemsFromDevelopmentCards;
+        return this.gemsFromDevelopmentCards;
     }
 
     public List<DevelopmentCard> getHand() {
-        return hand;
+        return this.hand;
     }
 
     public List<NobleTile> getNobleTiles() {
-        return nobleTiles;
+        return this.nobleTiles;
     }
 
     private void drawGemTokens(Gem...gemTokens){
@@ -78,7 +85,7 @@ public class Player {
         this.drawGemTokens(gem1, gem2, gem3);
     }
 
-    private void putGemTokensAway(byte[] gemTokenAmounts) {
+    private void putGemTokensAway(int[] gemTokenAmounts) {
         this.gemsFromTokens.subtract(GemTokenVector.fromGemAmounts(gemTokenAmounts));
     }
 
@@ -86,10 +93,23 @@ public class Player {
         this.metalTokens.add(PreciousMetalTokenVector.fromMetals(preciousMetalTokens));
     }
 
-    private void putMetalTokensAway(byte[] metalTokensAmounts) {
+    private void putMetalTokensAway(int[] metalTokensAmounts) {
         this.metalTokens.subtract(PreciousMetalTokenVector.fromMetalAmounts(metalTokensAmounts));
     }
 
-
+    public void move(int moveID) {
+        switch (moveID) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+                break;
+        }
+    }
 
 }

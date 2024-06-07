@@ -1,7 +1,14 @@
 package economy;
 
 public class GemCardVector extends GemVector {
-    public GemCardVector(){ super(Gem.values()); }
+    public GemCardVector(){
+        super(Gem.values());
+    }
+
+    public GemCardVector(int[] amounts) {
+        super(Gem.values());
+        this.setAmounts(amounts);
+    }
 
     @Override
     public String toString() {

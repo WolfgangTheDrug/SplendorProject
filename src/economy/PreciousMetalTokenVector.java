@@ -35,7 +35,7 @@ public class PreciousMetalTokenVector extends ValuableVector<PreciousMetal> {
         return result;
     }
 
-    public static @NotNull PreciousMetalTokenVector fromMetalAmounts(byte[] amounts) {
+    public static @NotNull PreciousMetalTokenVector fromMetalAmounts(int[] amounts) {
         PreciousMetalTokenVector result = new PreciousMetalTokenVector();
         result.setAmounts(amounts);
         return result;

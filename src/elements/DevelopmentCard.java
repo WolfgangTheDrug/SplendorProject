@@ -6,13 +6,13 @@ import economy.GemTokenVector;
 import java.util.Map;
 
 public class DevelopmentCard {
-    private final byte level;
-    private final byte score;
+    private final int level;
+    private final int score;
     private final Gem bonus;
     private final GemTokenVector price;
     private boolean isRevealed;
 
-    public DevelopmentCard(byte level, byte score, Gem bonus, GemTokenVector price) {
+    public DevelopmentCard(int level, int score, Gem bonus, GemTokenVector price) {
         this.level = level;
         this.score = score;
         this.bonus = bonus;
@@ -20,16 +20,11 @@ public class DevelopmentCard {
         this.isRevealed = false;
     }
 
-    public DevelopmentCard(DevelopmentCardReader reader) {
-        this(
-            reader.getLevel(),
-            reader.getScore(),
-            reader.getBonus(),
-            reader.getPrice()
-        );
+    public int getLevel() {
+        return level;
     }
 
-    public byte getScore() {
+    public int getScore() {
         return score;
     }
 

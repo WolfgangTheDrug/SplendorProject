@@ -7,19 +7,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    private final List<Player> players;
-    private final List<List<DevelopmentCard>> upcards;
-    private final List<List<DevelopmentCard>> decks;
-    private final List<NobleTile> nobles;
-    private final GemTokenVector gems;
-    private final PreciousMetalTokenVector metals;
+    private final List<List<DevelopmentCard>> upcards = new ArrayList<>();
+    private List<List<DevelopmentCard>> decks = new ArrayList<>();
+    private List<NobleTile> nobles = new ArrayList<>();
+    private GemTokenVector gems = new GemTokenVector();
+    private PreciousMetalTokenVector metals = new PreciousMetalTokenVector();
 
-    Board(BoardBuilder boardBuilder) {
-        this.players = new ArrayList<>();
-        this.upcards = new ArrayList<>();
-        this.decks = new ArrayList<>();
-        this.nobles = new ArrayList<>();
-        this.gems = new GemTokenVector();
-        this.metals = new PreciousMetalTokenVector();
+
+    public List<List<DevelopmentCard>> getUpcards() {
+        return upcards;
+    }
+
+    public List<List<DevelopmentCard>> getDecks() {
+        return decks;
+    }
+
+    public void setDecks(List<List<DevelopmentCard>> decks) {
+        this.decks = decks;
+    }
+
+    public List<NobleTile> getNobles() {
+        return nobles;
+    }
+
+    public void setNobles(List<NobleTile> nobles) {
+        this.nobles = nobles;
+    }
+
+    public GemTokenVector getGems() {
+        return gems;
+    }
+
+    public void setGems(GemTokenVector gems) {
+        this.gems = gems;
+    }
+
+    public PreciousMetalTokenVector getMetals() {
+        return metals;
+    }
+
+    public void setMetals(PreciousMetalTokenVector metals) {
+        this.metals = metals;
     }
 }

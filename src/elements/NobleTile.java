@@ -3,15 +3,15 @@ package elements;
 import economy.GemCardVector;
 
 public class NobleTile {
-    private final byte score;
+    private final int score;
     private final GemCardVector price;
 
-    public NobleTile(byte score, GemCardVector price) {
+    public NobleTile(int score, GemCardVector price) {
         this.score = score;
         this.price = price;
     }
 
-    public byte getScore() {
+    public int getScore() {
         return score;
     }
 

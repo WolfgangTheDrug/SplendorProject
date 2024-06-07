@@ -2,10 +2,10 @@ package economy;
 
 public enum Gem implements Valuable {
     DIAMOND("⚪️", "⬜️"),
-    ONYX("⚫️", "⬛️"),
     SAPPHIRE("🔵", "🟦"),
+    EMERALD("🟢", "🟩"),
     RUBY("🔴", "🟥"),
-    EMERALD("🟢", "🟩");
+    ONYX("⚫️", "⬛️");
 
     private final String roundSymbol;
     private final String squareSymbol;
@@ -27,4 +27,5 @@ public enum Gem implements Valuable {
     public String getSymbol(boolean isSquare) {
         return isSquare ? getSquareSymbol() : getRoundSymbol();
     }
+
 }
