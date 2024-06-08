@@ -8,8 +8,8 @@ import java.util.*;
 public class Game {
     private final int GEM_TOKENS_COUNT = 7;
     private final int METAL_TOKENS_COUNT = 5;
-    public static final int MIN_PLAYER_COUNT = 2;
-    public static final int MAX_PLAYER_COUNT = 4;
+    private final int MIN_PLAYER_COUNT = 2;
+    private final int MAX_PLAYER_COUNT = 4;
     private final CLI cli;
     private final List<DevelopmentCard> allDevelopmentCards;
     private final List<NobleTile> allNobleTiles;
@@ -21,15 +21,19 @@ public class Game {
 
     public Game() throws IOException {
         this.cli = new CLI();
-        this.playerCount = cli.askForPlayerCount();
+        this.playerCount = this.cli.askForPlayerCount();
         this.players = new ArrayList<>(this.playerCount);
-        
-        GameConfigurator gameConfigurator = new GameConfigurator();
+        int playersAdded = 1;
+        while (playersAdded <= this.playerCount) {
+            String newPlayerName = this.cli.askForPlayerName(playersAdded, this.players);
+            Player newPlayer = new Player(playersAdded, newPlayerName);
+            this.players.add(newPlayer);
+        }
 
+        GameConfigurator gameConfigurator = new GameConfigurator();
         this.allDevelopmentCards = gameConfigurator.getDevelopmentCards();
         this.allNobleTiles = gameConfigurator.getNobleTiles();
 
-        BoardBuilder boardBuilder = ;
         this.board = new BoardBuilder()
                 .placeDevelopmentCards(this.allDevelopmentCards)
                 .placeNobleTiles(this.playerCount, this.allNobleTiles)
@@ -39,43 +43,22 @@ public class Game {
         this.isGameOver = false;
     }
 
-    public void start() throws Exception {
-        this.setUp();
+    public void play() throws Exception {
 
         while(!this.isGameOver) {
             this.nextTurn();
         }
 
-
         this.finish();
     }
-    public void setUp() throws Exception {
 
-        BoardCreator boardCreator;
-        switch (this.playerCount) {
-            case 2:
-                boardCreator = new BoardCreatorFor2Players();
-                break;
-            case 3:
-                boardCreator = new BoardCreatorFor3Players();
-                break;
-            case 4:
-                boardCreator = new BoardCreatorFor4Players();
-            default:
-                throw new Exception(
-                        String.format("Invalid amount of players. Correct numbers are between %d and %d", MIN_PLAYER_COUNT, MAX_PLAYER_COUNT)
-                );
-        }
-        this.board = boardCreator.setUp();
-
-    }
     public void nextTurn() {
         this.turnCount += 1;
 
         for(Player player : this.players) {
             boolean isValidMove = false;
             while (!isValidMove) {
-                int moveID = this.cli.askAboutMove();
+                int moveID = this.cli.askAboutMove(player);
                 isValidMove = player.checkMove(moveID);
             }
             player.move(moveID);
@@ -83,20 +66,18 @@ public class Game {
 
     };
 
-    public void sortPlayersByScore() {
+    private void sortPlayersByScore() {
         Comparator<Player> playerComparator = Comparator
                 .comparing(Player::getScore)
-                .reversed()
-                .thenComparing(Player::getDevelopmentCardCount);
+                .thenComparing(Player::getDevelopmentCardCount)
+                .reversed();
 
         this.players.sort(playerComparator);
     }
 
     public void finish() {
         this.sortPlayersByScore();
-        this.cli.printScoreInfo(this.players);
         this.cli.printEndMessage(this.turnCount);
+        this.cli.printScoreInfo(this.players);
     }
-
-
 }

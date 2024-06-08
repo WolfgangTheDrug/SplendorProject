@@ -5,7 +5,6 @@ import economy.GemTokenVector;
 import economy.PreciousMetal;
 import economy.PreciousMetalTokenVector;
 
-import java.security.cert.CertPathBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -47,7 +46,6 @@ public class BoardBuilder {
         Collections.shuffle(nobleTiles);
         List<NobleTile> drawnTiles = nobleTiles.subList(0, NOBLE_TILES_COUNT);
         this.board.setNobles(drawnTiles);
-
         return this;
     }
 
@@ -62,6 +60,7 @@ public class BoardBuilder {
 
         GemTokenVector initialGemTokens = GemTokenVector.fromGemAmounts(amounts);
         this.board.setGems(initialGemTokens);
+        return this;
     }
 
     public BoardBuilder placeMetalTokens() {
@@ -72,6 +71,7 @@ public class BoardBuilder {
 
         PreciousMetalTokenVector initialMetalTokens = PreciousMetalTokenVector.fromMetalAmounts(amounts);
         this.board.setMetals(initialMetalTokens);
+        return this;
     }
 
     public Board build() {
