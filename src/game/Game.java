@@ -1,5 +1,6 @@
 package game;
 
+import economy.GemTokenVector;
 import elements.*;
 
 import java.io.IOException;
@@ -59,7 +60,32 @@ public class Game {
             boolean isValidMove = false;
             while (!isValidMove) {
                 int moveID = this.cli.askAboutMove(player);
-                isValidMove = player.checkMove(moveID);
+                switch (moveID) {
+                    case 1:
+                        GemTokenVector request = this.cli.askAboutGems(3);
+                        if (this.board.getGems().isGreaterOrEqual(request)){
+                            this.board.setGems(this.board.getGems().subtract(request));
+                            player.setGemsFromTokens((GemTokenVector) player.getGemsFromTokens().add(request));
+                            isValidMove = true;
+                        }
+                        break;
+                    case 2:
+                        GemTokenVector request = this.cli.askAboutGems(2);
+                        if (this.board.getGems().isGreaterOrEqual(request.multiply(2))){
+                            CODE HERE
+                            isValidMove = true;
+                        }
+                        break;
+                    case 3:
+                        int x = this.cli.askAboutCardLevel();
+                        int y = this.cli.askAboutCardColumn();
+                        DevelopmentCard request = this.board.getDecks().get(x).get(y);
+                        GemTokenVector price = request.getPrice();
+//                        if (player.getGemsFromTokens())
+                        break;
+
+                }
+                isValidMove = player.requestMove(move);
             }
             player.move(moveID);
         }

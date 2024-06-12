@@ -2,7 +2,7 @@ package economy;
 
 import org.jetbrains.annotations.NotNull;
 
-abstract class GemVector extends ValuableVector<Gem> {
+class GemVector extends ValuableVector<Gem> {
     public GemVector(){
         super(Gem.values());
     }
@@ -10,14 +10,23 @@ abstract class GemVector extends ValuableVector<Gem> {
         super(values);
     }
 
-    public void add(GemVector gemVector) {
-        super.add(gemVector);
+    public int getNorm() {
+        int norm = 0;
+        for(int i = 0; i < this.getAmounts().length; i++) {
+            norm += this.getAmounts()[i]*scalar;
+        }
+
+        return norm;
     }
 
-    public boolean isGreaterOrEqual(GemVector gemVector) {
-        return super.isGreaterOrEqual(gemVector);
+    @Override
+    public ValuableVector<Gem> add(ValuableVector<Gem> valuableVector) {
+        GemVector sum = new GemVector();
+        for(int i = 0; i < this.getAmounts().length; i++) {
+            sum.getAmounts()[i] = this.getAmounts()[i] + valuableVector.getAmounts()[i];
+        }
+        return sum;
     }
 
-    abstract public String toString();
 
 }

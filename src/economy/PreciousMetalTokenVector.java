@@ -7,19 +7,10 @@ public class PreciousMetalTokenVector extends ValuableVector<PreciousMetal> {
         super(PreciousMetal.values());
     }
 
-    public void add(PreciousMetalTokenVector preciousMetalTokenVector) {
-        super.add(preciousMetalTokenVector);
-    }
-
-
     public void subtract(PreciousMetalTokenVector preciousMetalTokenVector) {
         for(int i = 0; i < this.getAmounts().length; i++) {
             this.getAmounts()[i] -= preciousMetalTokenVector.getAmounts()[i];
         }
-    }
-
-    public boolean isGreaterOrEqual(PreciousMetalTokenVector preciousMetalTokenVector) {
-        return super.isGreaterOrEqual(preciousMetalTokenVector);
     }
 
     public static @NotNull PreciousMetalTokenVector fromMetals(PreciousMetal @NotNull ...preciousMetals) {

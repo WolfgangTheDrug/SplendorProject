@@ -7,19 +7,23 @@ public class GemTokenVector extends GemVector {
         super(Gem.values());
     }
 
-//    public void add(TokenVector tokenVector) {
-//        super.add(tokenVector);
-//    }
-
-//    public boolean isGreaterOrEqual(TokenVector tokenVector) {
-//        return super.isGreaterOrEqual(tokenVector);
-//    }
-    public void subtract(GemTokenVector gemTokenVector) {
+    public GemTokenVector subtract(GemTokenVector gemTokenVector) {
+        GemTokenVector difference = new GemTokenVector();
         for(int i = 0; i < this.getAmounts().length; i++) {
-            this.getAmounts()[i] -= gemTokenVector.getAmounts()[i];
+            difference.getAmounts()[i] = this.getAmounts()[i] - gemTokenVector.getAmounts()[i];
         }
+        return difference;
     }
-//
+
+    public GemTokenVector multiply(int scalar) {
+        GemTokenVector product = new GemTokenVector();
+        for(int i = 0; i < this.getAmounts().length; i++) {
+            product.getAmounts()[i] = this.getAmounts()[i]*scalar;
+        }
+        return product;
+    }
+
+
     public static @NotNull GemTokenVector fromGems(Gem @NotNull ...gems) {
         GemTokenVector result = new GemTokenVector();
 
@@ -47,6 +51,5 @@ public class GemTokenVector extends GemVector {
         }
         return result.toString();
     }
-
 
 }

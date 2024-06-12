@@ -3,7 +3,7 @@ package economy;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-abstract public class ValuableVector<V extends Valuable> {
+public class ValuableVector<V extends Valuable> {
     private int[] amounts;
     private final V[] units;
 
@@ -25,16 +25,18 @@ abstract public class ValuableVector<V extends Valuable> {
         return units;
     }
 
-    public void add(ValuableVector<V> valuableVector) {
-        for(int i = 0; i < this.amounts.length; i++) {
-            this.amounts[i] += valuableVector.amounts[i];
+    public ValuableVector<V> add(ValuableVector<V> valuableVector) {
+        ValuableVector<V> sum = new ValuableVector<>(this.units);
+        for(int i = 0; i < this.getAmounts().length; i++) {
+            sum.getAmounts()[i] = this.getAmounts()[i] + valuableVector.getAmounts()[i];
         }
+        return sum;
     }
 
     public boolean isGreaterOrEqual(ValuableVector<V> valuableVector) {
         boolean result = true;
-        for(int i = 0; i < this.amounts.length; i++) {
-            if (this.amounts[i] < valuableVector.amounts[i]){
+        for(int i = 0; i < this.getAmounts().length; i++) {
+            if (this.getAmounts()[i] < valuableVector.getAmounts()[i]){
                 result = false;
                 break;
             }

@@ -47,8 +47,8 @@ public class CLI {
     public int askAboutMove(Player player) {
         Map<Integer, String> moveOptions = new HashMap<>(5);
         moveOptions.put(1, "Take 3 gem tokens of different colors");
-        moveOptions.put(2,  "Take 2 gem tokens of the same color");
-        moveOptions.put(3, "Purchase 1 face-up development card from the middle of the table. or a previously reserved one");
+        moveOptions.put(2, "Take 2 gem tokens of the same color");
+        moveOptions.put(3, "Purchase 1 face-up development card from the middle of the table");
         moveOptions.put(4, "Purchase 1 previously reserved development card");
         moveOptions.put(5, "Reserve 1 development card and take 1 gold token (joker)");
         String playersInput = "";
